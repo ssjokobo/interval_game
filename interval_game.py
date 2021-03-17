@@ -5,7 +5,7 @@ pitches = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
 chord_tones = {'C': 0, 'D': 2, 'E': 4, 'F': 5, 'G': 7, 'A': 9, 'B': 11}
 accidentals = ['b', '', '#']
 tension_names = {
-    '0': ['root'],
+    '0': ['root', 'Root'],
     '1': ['#1', 'b9', 'b2', '#15'],
     '2': ['2', '9'],
     '3': ['b3', '#9'],
@@ -26,7 +26,7 @@ def random_acci():
     return math.floor((random() * 3))
 
 def compare(p1, p2):
-    return tension_names[str((p2.val - p1.val + 12)%12)]
+    return tension_names[str((p2.val - p1.val + 12) % 12)]
 
 class PitchClass():
     def __init__(self):
@@ -38,6 +38,10 @@ class PitchClass():
 root = PitchClass()
 tension = PitchClass()
 
-print('If {0} is the root, what is the tension number for {1}?'.format(root.name, tension.name))
-print(compare(root, tension))
+user_answer = input('If {0} is the root, what is the tension number for {1}?\n'.format(root.name, tension.name))
+answer = compare(root, tension)
+if user_answer in answer:
+    print('Correct! Possible answers are: {}'.format(', '.join(map(str, answer))))
+else:
+    print('Wrong, and the answers are: {}'.format(', '.join(map(str, answer))))
 
