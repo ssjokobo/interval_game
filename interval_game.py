@@ -2,8 +2,22 @@ from random import random
 import math
 
 pitches = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
-chord_tones = {'C': 0, 'E': 4, 'G': 7, 'B': 11, 'D': 2, 'F': 5, 'A': 9}
+chord_tones = {'C': 0, 'D': 2, 'E': 4, 'F': 5, 'G': 7, 'A': 9, 'B': 11}
 accidentals = ['b', '', '#']
+tension_names = {
+    '0': ['root'],
+    '1': ['#1', 'b9', 'b2', '#15'],
+    '2': ['2', '9'],
+    '3': ['b3', '#9'],
+    '4': ['3'],
+    '5': ['4', '11'],
+    '6': ['#11', '#4', 'b5'],
+    '7': ['5'],
+    '8': ['#5', 'b13'],
+    '9': ['6', '13', 'bb7'],
+    '10': ['b7'],
+    '11': ['7']
+}
 
 def random_pitch(): 
     return math.floor((random() * 7))
@@ -12,12 +26,7 @@ def random_acci():
     return math.floor((random() * 3))
 
 def compare(p1, p2):
-    if p1.val == p2.val:
-        return 'root'
-    elif p1.val < p2.val:
-        p2.num - p1.num + 1
-        return
-    else:
+    return tension_names[str((p2.val - p1.val + 12)%12)]
 
 class PitchClass():
     def __init__(self):
@@ -26,13 +35,9 @@ class PitchClass():
         self.name = pitches[self.num] + accidentals[self.acc]
         self.val = chord_tones[pitches[self.num]] + self.acc - 1
 
-class MajorScale(pitch):
-    def __init__(self, pitch):
-        self.list = 
-
 root = PitchClass()
 tension = PitchClass()
 
 print('If {0} is the root, what is the tension number for {1}?'.format(root.name, tension.name))
-print(root.val)
-print(tension.val)
+print(compare(root, tension))
+
